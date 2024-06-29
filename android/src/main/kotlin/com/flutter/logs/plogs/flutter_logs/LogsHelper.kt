@@ -84,7 +84,7 @@ object LogsHelper {
         try {
             if (appendTimeStamp) {
                 PLog.getLoggerFor(type)
-                        ?.appendToFile("$data [${DateTimeUtils.getTimeFormatted()}]\n")
+                        ?.appendToFile("$data\n")
             } else {
                 PLog.getLoggerFor(type)
                         ?.appendToFile("$data")
@@ -98,7 +98,7 @@ object LogsHelper {
 
         try {
             if (appendTimeStamp) {
-                PLog.getLoggerFor(type)?.overwriteToFile("$data [${DateTimeUtils.getTimeFormatted()}]")
+                PLog.getLoggerFor(type)?.overwriteToFile("$data")
             } else {
                 PLog.getLoggerFor(type)?.overwriteToFile(data!!)
             }
