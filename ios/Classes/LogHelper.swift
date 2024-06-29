@@ -178,7 +178,7 @@ class LogHelper: NSObject {
     }
     
     static func prefix() -> String {
-        return dateFormatter().string(from: Date())
+        return ""
     }
     
     static func zipLogs(result: @escaping FlutterResult, zipName:String,eventSink: FlutterEventSink?,channel : FlutterMethodChannel?) {
