@@ -95,15 +95,16 @@ object LogsHelper {
     }
 
     fun overWriteLogToFile(type: String, data: String?, appendTimeStamp: Boolean) {
-
         try {
-            if (appendTimeStamp) {
-                PLog.getLoggerFor(type)?.overwriteToFile("$data")
+            val logger = PLog.getLoggerFor(type)
+            if (logger != null && data != null) {
+                val logData = if (appendTimeStamp) "$data" else data
+                logger.overwriteToFile(logData)
             } else {
-                PLog.getLoggerFor(type)?.overwriteToFile(data!!)
+                Log.w("LogWarning", "Logger is null or data is null")
             }
-        } catch (e: java.lang.Exception) {
-            e.printStackTrace()
+        } catch (e: Exception) {
+            Log.e("LogError", "Failed to overwrite log file", e)
         }
     }
 
