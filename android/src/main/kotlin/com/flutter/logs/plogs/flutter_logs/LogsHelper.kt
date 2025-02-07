@@ -95,17 +95,17 @@ object LogsHelper {
     }
 
     fun overWriteLogToFile(type: String, data: String?, appendTimeStamp: Boolean) {
-        try {
-            val logger = PLog.getLoggerFor(type)
-            if (logger != null && data != null) {
-                val logData = if (appendTimeStamp) "$data" else data
-                logger.overwriteToFile(logData)
-            } else {
-                Log.w("LogWarning", "Logger is null or data is null")
-            }
-        } catch (e: Exception) {
-            Log.e("LogError", "Failed to overwrite log file", e)
-        }
+         try {
+          val logger = PLog.getLoggerFor(type)
+          if (logger != null && data != null) {
+              val logData = if (appendTimeStamp) "$data" else data
+              logger.overwriteToFile(logData)
+          } else {
+              Log.w("LogWarning", "Logger is null or data is null")
+          }
+      } catch (e: Exception) {
+          Log.e("LogError", "Failed to overwrite log file", e)
+      }
     }
 
     fun setupForELKStack(appId: String?,
