@@ -62,7 +62,7 @@ dependencies {
 
     //RxLogs
 //    implementation "com.github.umair13adil:RxLogs:1.0.20"
-    implementation "com.github.abdulkhira1:RxLogs:b66e99a365"
+    implementation "com.github.abdulkhira1:RxLogs:bcab46eeef"
 
 
     implementation "androidx.core:core-ktx:1.9.0"
