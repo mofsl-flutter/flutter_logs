@@ -1,6 +1,7 @@
 package com.flutter.logs.plogs.flutter_logs
 
 import android.content.Context
+import android.util.Log
 import com.blackbox.plog.elk.PLogMetaInfoProvider
 import com.blackbox.plog.elk.models.fields.MetaInfo
 import com.blackbox.plog.mqtt.PLogMQTTProvider
