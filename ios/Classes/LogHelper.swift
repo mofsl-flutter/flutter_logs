@@ -14,6 +14,9 @@ class LogHelper: NSObject {
     //MARK: constants
     static let sharedInstance = LogHelper()
     
+    /// Writes each line to the file for the current day. See DailyFileWriter.
+    private static let fileWriter = DailyFileWriter(directory: { Logging.defaultLogsDirectoryURL() })
+    
     static var logFilePath: String {
         return ""
     }
@@ -26,19 +29,10 @@ class LogHelper: NSObject {
     static func logToFile(result: @escaping FlutterResult, logFileName:String, message:String,
                           overwrite:Bool, appendTimeStamp:Bool){
         let log = "{\(logFileName)} {\(message)} {\(overwrite)}"
-        
-        guard let dirURL = Logging.defaultLogsDirectoryURL() else {
-            print("Logs directory not found")
-            return
-        }
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "y-MM"
-        
-        let fileName = "\(logFileName)-\(dateFormatter.string(from: Date()))"
-        let fileURL = dirURL.appendingPathComponent(fileName).appendingPathExtension("txt")
-        let output = FileOutput(filePath: fileURL.path)
-        Logger.sharedInstance.addOutput(output)
-        Logger.sharedInstance.log(prefix() + ": " + log)
+        let line = prefix() + ": " + log
+        // One file per day: LogFile-yyyy-MM-dd.txt
+        fileWriter.append(line, stem: logFileName)
+        Logger.sharedInstance.log(line) // console
         result(log)
     }
     
@@ -48,19 +42,10 @@ class LogHelper: NSObject {
                         logMessage:String,
                         level:String){
         let log = "{\(tag)} {\(subTag)} {\(logMessage)} {\(level)}"
-        
-        guard let dirURL = Logging.defaultLogsDirectoryURL() else {
-            print("Logs directory not found")
-            return
-        }
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "y-MM"
-        
-        let fileName = "Log-\(dateFormatter.string(from: Date()))"
-        let fileURL = dirURL.appendingPathComponent(fileName).appendingPathExtension("txt")
-        let output = FileOutput(filePath: fileURL.path)
-        Logger.sharedInstance.addOutput(output)
-        Logger.sharedInstance.log(prefix() + ": " + log)
+        let line = prefix() + ": " + log
+        // One file per day: Log-yyyy-MM-dd.txt
+        fileWriter.append(line, stem: "Log")
+        Logger.sharedInstance.log(line) // console
         result(log)
     }
     
@@ -71,18 +56,10 @@ class LogHelper: NSObject {
                         level:String,
                         exception:String){
         let log = "{\(tag)} {\(subTag)} {\(logMessage)} {\(level)}"
-        guard let dirURL = Logging.defaultLogsDirectoryURL() else {
-            print("Logs directory not found")
-            return
-        }
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "y-MM"
-        
-        let fileName = "Log-\(dateFormatter.string(from: Date()))"
-        let fileURL = dirURL.appendingPathComponent(fileName).appendingPathExtension("txt")
-        let output = FileOutput(filePath: fileURL.path)
-        Logger.sharedInstance.addOutput(output)
-        Logger.sharedInstance.log(prefix() + ": " + log)
+        let line = prefix() + ": " + log
+        // One file per day: Log-yyyy-MM-dd.txt
+        fileWriter.append(line, stem: "Log")
+        Logger.sharedInstance.log(line) // console
         result(log)
     }
     

@@ -1,3 +1,13 @@
+## Rise fork (on top of 2.2.7)
+
+* iOS: log files are now one per calendar day, `Log-yyyy-MM-dd.txt` and `LogFile-yyyy-MM-dd.txt`
+  (they were one per month, and `LogFile` was never written: `Logger.addOutput` kept only the first
+  file output, so every line went to whichever file was opened first in the session).
+* iOS: the file is chosen from the date on every write, so a session that runs past midnight starts
+  the next day's file. The day is read in the device time zone, with a fixed Gregorian calendar and
+  POSIX locale, so it is not renamed under a Buddhist or Hijri calendar.
+* Android and the Dart API are unchanged from 2.2.7.
+
 ## 2.2.7
 * Refactored `FlutterLogsPlugin` to modern Flutter plugin standards — all state (`channel`, `eventChannel`, `applicationContext`) moved from static `companion object` fields to instance fields, eliminating potential memory leaks when the engine is detached and re-attached
 * Removed `@JvmStatic` annotations; `setUpPluginMethods` and `invokeChannelMethod` are now private instance methods, consistent with the `FlutterPlugin` embedding API contract
