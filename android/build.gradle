@@ -23,31 +23,27 @@ rootProject.allprojects {
 }
 
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
+apply plugin: 'org.jetbrains.kotlin.android'
 
 android {
-    compileSdkVersion 33
     namespace 'com.flutter.logs.plogs.flutter_logs'
-
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-
-    kotlinOptions {
-        jvmTarget = '1.8'
-    }
-
-    sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
-    }
+    compileSdkVersion 34
     defaultConfig {
         minSdkVersion 16
+    }
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
     }
     lintOptions {
         disable 'InvalidPackage'
     }
-
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -58,7 +54,7 @@ dependencies {
     implementation  'io.reactivex.rxjava2:rxkotlin:2.2.0'
 
     //RxLogs
-    implementation "com.github.umair13adil:RxLogs:1.0.20"
+    implementation "com.github.umair13adil:RxLogs:v1.0.27"
 
     implementation "androidx.core:core-ktx:1.9.0"
     // Kotlin + coroutines
