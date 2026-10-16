@@ -6,7 +6,13 @@
 * iOS: the file is chosen from the date on every write, so a session that runs past midnight starts
   the next day's file. The day is read in the device time zone, with a fixed Gregorian calendar and
   POSIX locale, so it is not renamed under a Buddhist or Hijri calendar.
-* Android and the Dart API are unchanged from 2.2.7.
+* Android: PLog (RxLogs v1.0.27) is now bundled as source instead of being fetched from JitPack, with
+  null-config guards added to `FileUtils.kt` and `LogWriter.kt`. A log write that reaches PLog before its
+  config is saved used to throw a `NullPointerException` on PLog's background thread and kill the process;
+  it is now logged and dropped. The dependencies, manifest entries (permissions and `MqttService`) and
+  the logs written are the same as with the RxLogs artifact. See `android/RXLOGS_VENDORED.md` and
+  `THIRD_PARTY_NOTICES.md`.
+* The Dart API is unchanged from 2.2.7.
 
 ## 2.2.7
 * Refactored `FlutterLogsPlugin` to modern Flutter plugin standards — all state (`channel`, `eventChannel`, `applicationContext`) moved from static `companion object` fields to instance fields, eliminating potential memory leaks when the engine is detached and re-attached
